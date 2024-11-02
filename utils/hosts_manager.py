@@ -2,8 +2,16 @@
 import json
 import os
 import inquirer
+import re
 
 HOSTS_FILE = 'hosts.json'
+
+
+# Regex for validating host data
+HOST_REGEX = re.compile(r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$')
+USER_REGEX = re.compile(r'^[a-zA-Z0-9_]+$')
+PASS_REGEX = re.compile(r'^[a-zA-Z0-9_]+$')
+KEY_REGEX = re.compile(r'^[a-zA-Z0-9_]+$')
 
 def load_hosts():
     if not os.path.exists(HOSTS_FILE):
@@ -29,9 +37,14 @@ def add_host():
         inquirer.Text('key_file', message="Key File Path (leave blank if using password)")
     ]
     answers = inquirer.prompt(questions)
-    if answers['host'] == '' or answers['username'] == '':
-        print("Host or username cannot be empty.")
+
+    if not HOST_REGEX.match(answers['host']):
+        print("Error: Invalid host format.")
         return
+    if not USER_REGEX.match(answers['username']):
+        print("Error: Invalid username format.")
+        return
+    
     hosts = load_hosts()
     hosts.append(answers)
     save_hosts(hosts)
