@@ -9,7 +9,8 @@ PRESETS = {
     "List Running Processes": "ps aux",
     "Show Uptime": "uptime",
     "Show working containers": "docker ps",
-    "Show port usage": "lsof -i -P"
+    "Install network tools": "apt-get install net-tools",
+    "Show port usage": "netstat -tulpn",
 }
 
 def presets_menu():
