@@ -29,6 +29,9 @@ def add_host():
         inquirer.Text('key_file', message="Key File Path (leave blank if using password)")
     ]
     answers = inquirer.prompt(questions)
+    if answers['host'] == '' or answers['username'] == '':
+        print("Host or username cannot be empty.")
+        return
     hosts = load_hosts()
     hosts.append(answers)
     save_hosts(hosts)
