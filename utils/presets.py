@@ -7,7 +7,9 @@ from multiprocessing import Pool
 PRESETS = {
     "Check Disk Usage": "df -h",
     "List Running Processes": "ps aux",
-    "Show Uptime": "uptime"
+    "Show Uptime": "uptime",
+    "Show working containers": "docker ps",
+    "Show port usage": "lsof -i -P"
 }
 
 def presets_menu():
